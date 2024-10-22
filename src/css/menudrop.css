@@ -1,0 +1,65 @@
+/* Căn chỉnh thanh điều hướng */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    color: white;
+  }
+  
+  .install-app {
+    margin-right: auto;
+  }
+  
+  .bell-icon {
+    margin-right: 20px;
+  }
+  
+  .user-avatar {
+    background-color: orange;
+    color: white;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  /* Dropdown menu */
+  .dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: #2c2c2c;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dropdown-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px 20px;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #444;
+  }
+  
+  .dropdown-menu li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu li a:hover {
+    text-decoration: underline;
+  }
+  

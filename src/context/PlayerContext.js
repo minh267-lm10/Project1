@@ -13,6 +13,9 @@ const PlayerContextProvider = (props) => {
     const [track, setTrack] = useState(songsData[0]);
     const [playStatus, setPlayStatus] = useState(false);
     const [login,setlogin]=useState("Login");
+    const [searchActive, setSearchActive] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
     const [time, setTime] = useState({
         currentTime: {
             second: 0,
@@ -35,14 +38,21 @@ const PlayerContextProvider = (props) => {
     }
 
     const playWithId = async (id) => {
-        await setTrack(songsData[id]);
-        await audioRef.current.play();
+          await setTrack(songsData[id]);
+         await audioRef.current.play();
         setPlayStatus(true);
+        console.log(songsData[id])
+        console.log(track.id)
+
     }
 
     const previous = async () => {
         if (track.id > 0) {
-            await setTrack(songsData[track.id - 1]);
+            let a =Number(track.id)-1
+
+            await setTrack(songsData[a]);
+            alert('bai hat truoc co id:'+songsData[track.id]+" "+a)
+
             await audioRef.current.play();
             setPlayStatus(true);
         }
@@ -50,7 +60,12 @@ const PlayerContextProvider = (props) => {
 
     const next = async () => {
         if (track.id < songsData.length - 1) {
-            await setTrack(songsData[track.id + 1]);
+            console.log(track.id)
+            let b =Number(track.id)+1
+            
+            await setTrack(songsData[b]);
+            alert('bai hat tiep theo co id:'+songsData[track.id]+" "+b)
+
             await audioRef.current.play();
             setPlayStatus(true);
         }
@@ -90,8 +105,15 @@ const PlayerContextProvider = (props) => {
         playWithId,
         previous, next,
         seekSong,
-        login,setlogin
+        login,setlogin,
+        searchActive,setSearchActive,
+        searchResults,setSearchResults,
+        searchTerm,setSearchTerm
     }
+    // useEffect(()=>{
+
+
+    // },[searchTerm])
 
     return (
         <PlayerContext.Provider value={contextValue}>

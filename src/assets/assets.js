@@ -116,7 +116,7 @@ export const albumsData = [
     }
 ]
 
-export const songsData = [
+export let songsData = [
     {
         id: 0,
         name: "Song One",
@@ -182,3 +182,68 @@ export const songsData = [
         duration: "2:35"
     }
 ]
+export const albumsDataca4 = [
+  
+    {
+        id: 4,
+        name: "Mega Hits",
+        image: img11,
+        desc: "Your weekly update of the most played tracks",
+        bgColor: "#234e52"
+    },
+    {
+        id: 5,
+        name: "Happy Favorites",
+        image: img15,
+        desc: "Your weekly update of the most played tracks",
+        bgColor: "#744210"
+    }
+]
+
+export let songsDataca4 = [
+    {
+        id: 0,
+        name: "Song One",
+        image: img1,
+        file: song1,
+        desc: "Put a smile on your face with these happy tunes mot ",
+        duration: "3:00"
+    },
+    {
+        id: 1,
+        name: "Song Two",
+        image: img2,
+        file: song2,
+        desc: "Put a smile on your face with these happy tunes",
+        duration: "2:20"
+    },
+    {
+        id: 2,
+        name: "Song Three",
+        image: img3,
+        file: song3,
+        desc: "Put a smile on your face with these happy tunes",
+        duration: "2:32"
+    },
+    {
+        id: 3,
+        name: "Song Four",
+        image: img4,
+        file: song1,
+        desc: "Put a smile on your face with these happy tunes",
+        duration: "2:50"
+    },
+    {
+        id: 4,
+        name: "Song Five",
+        image: img5,
+        file: song2,
+        desc: "Put a smile on your face with these happy tunes",
+        duration: "3:10"
+    },
+
+ 
+]
+export const initializeSongsData = (data) => {
+    songsData = data;
+};

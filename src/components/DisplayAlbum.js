@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
-import { albumsData, assets, songsData } from "../assets/assets";
+import { albumsData, assets, songsData, songsDataca4 } from "../assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 
 const DisplayAlbum = () => {
@@ -13,6 +13,7 @@ const DisplayAlbum = () => {
     return (
         <>
             <NavBar />
+            
             <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-end">
                 <img className="w-48 rounded " src={albumData.image} alt="" />
                 <div className=" flex flex-col">
@@ -37,14 +38,22 @@ const DisplayAlbum = () => {
             {
                 songsData.map((item, index) => (
                     <div onClick={() => playWithId(item.id)} key={index} className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer">
-                        <p className="text-white">
+                        {/* <p className="text-white">
                             <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
                             <img className="inline w-10 mr-5 " src={item.image} alt="" />
                             {item.name}
                         </p>
                         <p className="text-[15px]">{ }albumData.name</p>
                         <p className="text-[15px] hidden sm:block ">5 days ago</p>
-                        <p className="text-[15px] text-center ">{item.duration}</p>
+                        <p className="text-[15px] text-center ">{item.duration}</p> */}
+                        <p className="text-white">
+                            <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
+                            <img className="inline w-10 mr-5 " src="https://vcdn1-dulich.vnecdn.net/2021/07/16/3-1-1626444927.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=KU8IkmrM5HbtYIyyS5k1qQ"  alt="" />
+                            {item.Name}
+                        </p>
+                        <p className="text-[15px]">{ }albumData.name</p>
+                        <p className="text-[15px] hidden sm:block ">5 days ago</p>
+                        <p className="text-[15px] text-center ">{item.duration}5.00</p>
                     </div>
                 ))
             }
