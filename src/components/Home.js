@@ -1,30 +1,53 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import Player from "./Player";
 import Display from "./Display";
 import { PlayerContext } from "../context/PlayerContext";
-import { Route,Routes } from "react-router-dom";
-import Login from "./Login";
-import song1 from "../assets/song1.mp3"
 
 function Home(props) {
-    const { audioRef, track } = useContext(PlayerContext)
-    return (
-        <div className="h-screen bg-black	" >
-        <div className="h-[90%] flex">
-          <SideBar />
-          <Display />
-        </div>
-        <div>
-          <Player />
-          {/* <audio ref={audioRef} src={track.file} preload="auto"></audio> */}
-          <audio ref={audioRef} src={song1} preload="auto"></audio>
+    const { audioRef, track } = useContext(PlayerContext);
+    const [audioUrl, setAudioUrl] = useState(null);
 
-        </div> 
-       
-        
-      </div>
-     
+    useEffect(() => {
+        const fetchAudio = async () => {  
+            try {
+                const response = await fetch(`http://localhost:8888/api/v1/music${track.file}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch audio");
+                }
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                console.log("Audio URL:", url); // Ghi log URL
+
+                setAudioUrl(url);
+            } catch (error) {
+                console.error("Error fetching audio:", error);
+            }
+        };
+
+        if (track.file) {
+            fetchAudio();
+        }
+
+        return () => {
+            if (audioUrl) {
+                URL.revokeObjectURL(audioUrl);
+            }
+        };
+    }, [track]);
+
+    return (
+        <div className="h-screen bg-black">
+            <div className="h-[90%] flex">
+                <SideBar />
+                <Display />
+            </div>
+            <div>
+                <Player />         
+                    <audio ref={audioRef} src={audioUrl} preload="auto" />     
+            </div>
+        </div>
     );
 }
 

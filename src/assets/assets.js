@@ -117,69 +117,22 @@ export const albumsData = [
 ]
 
 export let songsData = [
+  
+      
     {
-        id: 0,
-        name: "Song One",
-        image: img1,
-        file: song1,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "3:00"
-    },
-    {
-        id: 1,
-        name: "Song Two",
-        image: img2,
-        file: song2,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "2:20"
-    },
-    {
-        id: 2,
-        name: "Song Three",
-        image: img3,
-        file: song3,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "2:32"
-    },
-    {
-        id: 3,
-        name: "Song Four",
-        image: img4,
-        file: song1,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "2:50"
-    },
-    {
-        id: 4,
-        name: "Song Five",
-        image: img5,
-        file: song2,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "3:10"
-    },
-    {
-        id: 5,
-        name: "Song Six",
-        image: img14,
-        file: song3,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "2:45"
-    },
-    {
-        id: 6,
-        name: "Song Seven",
-        image: img7,
-        file: song1,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "2:18"
-    },
-    {
-        id: 7,
-        name: "Song Eight",
-        image: img12,
-        file: song2,
-        desc: "Put a smile on your face with these happy tunes",
-        duration: "2:35"
+     id: 2,
+            name: "Hãy Trao Cho Anh",
+            title: null,
+            album: null,
+            duration: 0,
+            file: "/data/stream/HayTraoChoAnh-SonTungMTPSnoopDogg-6010660.mp3",
+            check:"false"
+            // "image": "/data/img/anh1.jpg",
+            // "desc": null,
+            // "releaseDate": null,
+            // "artistID": [
+            //     "ecb56b5c-fe25-4447-9b5c-a27b49731ab6"
+            // ]
     }
 ]
 export const albumsDataca4 = [

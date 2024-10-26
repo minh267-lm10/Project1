@@ -13,16 +13,16 @@ function Login(props) {
     e.preventDefault();
     try {
       let dataUser = {
-        email: Username,
+        username: Username,
         password: Password,
       };
       let response = (await Apiuser.apiLogin(dataUser)).data;
-      let { token } = response.result.token;
+      let { token } = response.result;
       setToken(token);
       navigate("/");
     } catch (error) {
       alert("kiểm tra lại thông tin đăng nhập");
-      navigate("/")
+    
     }
   };
   return (
