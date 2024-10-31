@@ -21,9 +21,11 @@ function Login(props) {
       setToken(token);
       navigate("/");
     } catch (error) {
-      alert("kiểm tra lại thông tin đăng nhập");
+      let a= error.response.data.message
+      alert("kiểm tra lại thông tin đăng nhập:"+a);
     
     }
+    
   };
   return (
     <div className="Baoboc">
@@ -50,6 +52,9 @@ function Login(props) {
           </div>
           <button type="submit" onClick={checklogin}>
             Login
+          </button>
+          <button type="submit" className="regis" onClick={()=>{navigate('/register')}}>
+            Register
           </button>
         </form>
       </div>

@@ -3,15 +3,18 @@ import { assets } from "../assets/assets";
 import {  useNavigate } from "react-router-dom";
 import { PlayerContext } from "../context/PlayerContext";
 import '../css/menudrop.css'
+import Apiuser from "../Api/Apiuser";
+import { getToken,removeToken } from "../Service/Localtokenservice";
 
 const NavBar = () => {
     const { login,setlogin } = useContext(PlayerContext)
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
-
+    const {datauser,setDatauser}=useContext(PlayerContext);
     let setchu=()=>{
-        if(login=="Login")
+        if(login=="Login" )
+          
         {
             setlogin("Logout")
         navigate('/Login')
@@ -20,18 +23,41 @@ const NavBar = () => {
         else
         {
             setlogin("Login")
+            removeToken()
+
             navigate('/')
         }
             
       
 
     }
-    useEffect(()=>{},[login])
+    useEffect(()=>{
+        if(login!="login")
+        {
+            fetchUserInfo()
+        }
+    },[login])
 
   
     const toggleMenu = () => {
       setIsOpen(!isOpen);
     };
+    const fetchUserInfo = async () => {
+        try {
+            const response = await Apiuser.getProfile(); 
+            setDatauser(response.data.result); 
+            alert("thanh cong")
+            
+        } catch (error) {
+            console.error("Error fetching user info:", error);
+            alert("that bai")
+            
+        }
+    };
+    // useEffect(() => {
+    //     if(getToken)  
+    //     fetchUserInfo(); 
+    // }, []); 
   
     useEffect(() => {
       const handleClickOutside = (event) => {
@@ -61,12 +87,12 @@ const NavBar = () => {
                     <p className="bg-black py-1 px-3 rounded-2xl text-[15px] cursor-pointer">Install App</p>
                     {login=='Login'? <p onClick={setchu} className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">{login}</p>
                 :<>      <p onClick={toggleMenu} className="bg-purple-500 text-black w-7 h-7 rounded-full flex items-center justify-center cursor-pointer" >
-                    {login=='Login'? 'S': 'L'}</p>
+                    {login=='Login'? 'S': datauser.username.charAt(0) }</p>
                     {isOpen && (
                         <div className="dropdown-menu" ref={menuRef}>
                             <ul>                          
-                                <li><a href="#account">User: Luyendz</a></li>
-                                <li><a href="#profile">Role: custom</a></li>
+                                <li><a href="#account">User: {datauser.username}</a></li>
+                                <li><a href="#profile">City: {datauser.city}</a></li>
                                 <li><a onClick={()=>{navigate('/infoaccount')}}>Profile</a></li>                                               
                                 <li><a onClick={setchu}>{login}</a></li>
                             </ul>

@@ -1,0 +1,107 @@
+/* register.css */
+.Baoboc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-color: black;
+    background-position: center;
+}
+.regis{
+    margin-top: 20px;
+}
+
+.wrapper {
+    width: 420px;
+    color: floralwhite;
+    background: transparent;
+    border: 2px solid white;
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    padding: 30px 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .inputbox {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 25px 0;
+}
+
+.inputbox input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid white;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 20px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.wrapper button {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .wrapper {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .input-row {
+        flex-direction: column;
+    }
+
+    .half-width {
+        width: 100%;
+    }
+}
+.error {
+    color:yellow;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.input-row {
+    margin: 0px 0px;
+    display: flex; /* Sử dụng Flexbox để bố trí các trường ngang hàng */
+    justify-content: space-between; /* Căn chỉnh khoảng cách giữa các trường */
+}
+
+.inputbox {
+    width: 48%; /* Đặt chiều rộng cho mỗi trường */
+    position: relative; /* Để sử dụng cho các thông báo lỗi */
+}

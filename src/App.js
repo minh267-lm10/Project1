@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Check from "./components/Check";
+import Register from "./components/Login,Register/Register";
 
 function App() {
   // const { audioRef, track } = useContext(PlayerContext);
@@ -30,8 +31,17 @@ function App() {
           path="/Login"
           element={
             <Login checklogginn={checklogginn} isLoggedIn={isLoggedIn} />
-          }         
+          }     
+
         />
+        <Route
+          path="/Register"
+          element={
+            <Register/>
+          }     
+
+        />
+        
           <Route
           path="/*"
           element={

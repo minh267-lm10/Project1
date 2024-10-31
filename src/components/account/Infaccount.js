@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import NavBar from "../NavBar";
 import { albumsDataca4 } from "../../assets/assets";
 import { songsDataca4 } from "../../assets/assets";
@@ -6,8 +6,11 @@ import { songsDataca4 } from "../../assets/assets";
 import Albumitem from "../Albumitem";
 import Songitem from "../Songitem";
 import axios from 'axios';
+import { PlayerContext } from '../../context/PlayerContext';
 function Infaccount(props) {
     const [song,setSong]=useState([])
+    const {datauser,setDatauser}=useContext(PlayerContext);
+
     useEffect(() => {
    let res= async()=>{
       let respon = await axios.get('https://6707fad88e86a8d9e42dae05.mockapi.io/api/nhac/getAllsongs')
@@ -34,7 +37,7 @@ function Infaccount(props) {
         {/* Thông tin hồ sơ */}
         <div className="flex flex-col items-start ml-8">
           <h4 className="text-lg mb-2">Profile</h4>
-          <h2 className="text-5xl font-bold mb-4 md:text-7xl">Vương Luyện</h2>
+          <h2 className="text-5xl font-bold mb-4 md:text-7xl">{datauser.firstName}</h2>
           <h4 className="text-lg mb-2">Thỏa thích sáng tạo</h4>
           <p className="mt-1 text-gray-300">
             <b>2 Playlist công khai</b> <span className="mx-2">•</span>

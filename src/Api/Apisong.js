@@ -1,8 +1,9 @@
 import axiosclient from "./Axioclient";
 const Apisong={
     
-   apigetallsong(){
-        const url='/music/songs'
+   apigetallsong(currentPage,itemsPerPage){
+         const url=`/music/songs?page=${currentPage}&size=${itemsPerPage}`
+    //    cón url=currentPage
         return axiosclient.get(url);
         
     },

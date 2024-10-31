@@ -16,7 +16,8 @@ const PlayerContextProvider = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [checkdau, setcheckdau] = useState(false);
-
+  const[datauser,setDatauser]=useState();
+  const [index,setIndex]=useState()
   const [time, setTime] = useState({
     currentTime: {
       second: 0,
@@ -27,6 +28,7 @@ const PlayerContextProvider = (props) => {
       minute: 0,
     },
   });
+
 
   const play = () => {
     audioRef.current.play();
@@ -40,7 +42,8 @@ const PlayerContextProvider = (props) => {
 
   const playWithId = async (id) => {
     // alert("mang tinh la:"+songsData[id])
-    await setTrack(songsData[id - 1]);
+    await setTrack(songsData[id]);
+    setIndex(id)
     await setTimeout(() => {
       audioRef.current.play();
     }, 500);
@@ -50,33 +53,38 @@ const PlayerContextProvider = (props) => {
   };
 
   const previous = async () => {
-    if (track.id > 0) {
-      let a = Number(track.id) - 1;
-
-      await setTrack(songsData[a]);
-      // alert('bai hat truoc co id:'+songsData[track.id]+" "+a)
+      setIndex((prevIndex) => {
+        if (prevIndex > 0) { 
+          const newIndex = prevIndex -1;
+          setTrack(songsData[newIndex]); 
+          return newIndex; 
+        }
+        return prevIndex; 
+      });
 
       await setTimeout(() => {
         audioRef.current.play();
       }, 500);
       setPlayStatus(true);
-    }
+    
   };
 
   const next = async () => {
-    if (track.id < songsData.length - 1) {
-      console.log(track.id);
-      let b = Number(track.id) + 1;
-
-      await setTrack(songsData[b]);
-      // alert('bai hat tiep theo co id:'+songsData[track.id]+" "+b)
-
-      await setTimeout(() => {
-        audioRef.current.play();
-      }, 500);
-      setPlayStatus(true);
-    }
+    setIndex((prevIndex) => {
+      if (prevIndex < songsData.length -1) { 
+        const newIndex = prevIndex + 1;
+        setTrack(songsData[newIndex]); 
+        return newIndex; 
+      }
+      return prevIndex; 
+    });
+  
+    await setTimeout(() => {
+      audioRef.current.play();
+    }, 500);
+    setPlayStatus(true);
   };
+  
 
   const seekSong = async (e) => {
     audioRef.current.currentTime =
@@ -130,6 +138,8 @@ const PlayerContextProvider = (props) => {
     setSearchResults,
     searchTerm,
     setSearchTerm,
+    datauser,
+    setDatauser
   };
   // useEffect(()=>{
 
