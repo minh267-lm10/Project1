@@ -11,12 +11,11 @@ const PlayerContextProvider = (props) => {
 
   const [track, setTrack] = useState(songsData[0]);
   const [playStatus, setPlayStatus] = useState(false);
-  const [login, setlogin] = useState("Login");
   const [searchActive, setSearchActive] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [checkdau, setcheckdau] = useState(false);
-  const[datauser,setDatauser]=useState();
+  const[datauser,setDatauser]=useState([]);
   const [index,setIndex]=useState()
   const [time, setTime] = useState({
     currentTime: {
@@ -129,8 +128,6 @@ const PlayerContextProvider = (props) => {
     previous,
     next,
     seekSong,
-    login,
-    setlogin,
     checkdau,
     searchActive,
     setSearchActive,

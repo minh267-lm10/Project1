@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { songsDataca4 } from "../assets/assets";
 import { albumsDataca4 } from "../assets/assets";
 import { PlayerContext } from "../context/PlayerContext"
+import Apisong from "../Api/Apisong";
 // id: 3,
 // name: "Song Four",
 // image: img4,
@@ -13,20 +14,17 @@ import { PlayerContext } from "../context/PlayerContext"
 const SideBar = () => {
     const {searchActive, setSearchActive} = useContext(PlayerContext);
     const {searchTerm, setSearchTerm} = useContext(PlayerContext);
-    const {searchResults, setSearchResults} = useContext(PlayerContext);
-  const navigate = useNavigate();
- 
+    const {setSearchResults} = useContext(PlayerContext);
+    const navigate = useNavigate();
+    
+    
 
-
-  const checkSearch = (e) => {
+  const checkSearch = async(e) => {
     setSearchTerm(e.target.value);
     if (searchTerm.length > 0) {
-      const results = songsDataca4.filter(
-        (song) =>
-          song.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          song.desc.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setSearchResults(results);
+      let results= await Apisong.apisearchsong(searchTerm)
+      
+      setSearchResults(results.data.result.data);
     } else setSearchResults([]);
   };
   const checkactive = () => {
@@ -43,13 +41,17 @@ const SideBar = () => {
     }
 
   };
+  const checkactive2=()=>{
+    setSearchActive(false);      
+    navigate('/')
+  }
 
   return (
     <div className="w-[25%] h-full p-2 flex-col gap-2 text-white hidden lg:flex">
       <div className="bg-[#121212] h-[15%] rounded flex flex-col justify-around">
         {/* Home */}
         <div
-          onClick={() => navigate("/")}
+          onClick={checkactive2}
           className="flex items-center gap-3 pl-8 cursor-pointer"
         >
           <img className="w-6" src={assets.home_icon} alt="home" />

@@ -7,37 +7,59 @@ import Albumitem from "../Albumitem";
 import Songitem from "../Songitem";
 import axios from 'axios';
 import { PlayerContext } from '../../context/PlayerContext';
+import Apiplaylist from '../../Api/Apiplaylist';
+import { initializeAlbumdata } from '../../assets/assets';
 function Infaccount(props) {
     const [song,setSong]=useState([])
     const {datauser,setDatauser}=useContext(PlayerContext);
+    const [dataplaylist,setDataplaylist]=useState([]);
 
+    const fetchDataplaylistuser= async () => {
+      try {
+        const response = await Apiplaylist.apigetallplaylistuser(1,6);
+        setDataplaylist(response.data.result.data);
+        console.log("hhhhhhh",response)
+      } catch (err) {
+        alert("Ma loi la: "+err.response.data.code +" Message: "+err.response.data.message)
+      }
+    };
+
+    useEffect(() => {     
+          fetchDataplaylistuser()
+  }, []);
     useEffect(() => {
-   let res= async()=>{
-      let respon = await axios.get('https://6707fad88e86a8d9e42dae05.mockapi.io/api/nhac/getAllsongs')
-      console.log(respon.data)
-      setSong(respon.data);
-        // initializeSongsData(respon.data)
-    //   console.log("mang tinh la:",songsData)
-      
-   }
-   res()
- 
- }, []);
+    
+     initializeAlbumdata(dataplaylist)
+        
+}, [dataplaylist]);
+
+
   return (
     <>
       <NavBar />
       <div className="mt-10 flex flex-col md:flex-row items-center bg-[#242424] p-8 rounded-lg text-white">
-        {/* Hình ảnh đại diện */}
-        <img
-          className="w-48 rounded-full border-4 border-gray-700"
-          src="https://vcdn1-dulich.vnecdn.net/2021/07/16/3-1-1626444927.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=KU8IkmrM5HbtYIyyS5k1qQ"
-          alt="Profile"
-        />
         
+      <div className="bg-black text-gray-400 text-9xl w-48 h-48 rounded-full flex items-center justify-center cursor-pointer">
+  {datauser?.img ? (
+    <img
+       src={`http://localhost:8888/api/v1/music${datauser.img}`}
+      alt="Profile"
+      onError={(e) => {
+          e.target.onerror = null; // Ngăn không cho vòng lặp vô hạn
+          e.target.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFkbvS5hOclbltXVzheWMVot9nZihE7F8gaw&s'; // Hình ảnh mặc định
+        }}
+      className="w-48 h-48 rounded-full object-cover"
+    />
+  ) : (
+    <p>{datauser?.username ? datauser.username.charAt(0).toUpperCase() : " "}</p>
+  )}
+</div>
+        
+
         {/* Thông tin hồ sơ */}
         <div className="flex flex-col items-start ml-8">
           <h4 className="text-lg mb-2">Profile</h4>
-          <h2 className="text-5xl font-bold mb-4 md:text-7xl">{datauser.firstName}</h2>
+          <h2 className="text-5xl font-bold mb-4 md:text-7xl">{(datauser?.lastName+" " +datauser?.firstName)|| 'Admin'}</h2>
           <h4 className="text-lg mb-2">Thỏa thích sáng tạo</h4>
           <p className="mt-1 text-gray-300">
             <b>2 Playlist công khai</b> <span className="mx-2">•</span>
@@ -45,10 +67,11 @@ function Infaccount(props) {
           </p>
         </div>
       </div>
+
       <div className="mb-4 ">
-                <h1 className="my-5 font-bold text-2xl">Playlist đã lưu</h1>
+                <h1 className="my-5 font-bold text-2xl">Playlist đã tạo</h1>
                 <div className="flex overflow-x-auto ">
-                    {albumsDataca4.map((item, index) => (<Albumitem key={index} name={item.name} desc={item.desc} id={item.id} image={item.image}  className="w-48 h-48 object-cover" />))}
+                    {dataplaylist.map((item, index) => (<Albumitem key={index} name={item.name} desc={item.desc} id={item.id} image={item.image}  className="w-48 h-48 object-cover" />))}
 
                 </div>
             </div>

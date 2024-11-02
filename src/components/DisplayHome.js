@@ -1,33 +1,50 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
-import { albumsData } from "../assets/assets";
 import Albumitem from "./Albumitem";
 import Songitem from "./Songitem";
 import Apisong from "../Api/Apisong";
-import { initializeSongsData } from "../assets/assets";
-import { songsData } from "../assets/assets";
+import Apiplaylist from "../Api/Apiplaylist";
+import { albumsDataca4, initializeSongsData } from "../assets/assets";
+import {initializeAlbumdata}  from "../assets/assets";
+
 
 const DisplayHome = () => {
   const [data, setData] = useState([]);
+  const [dataplaylist,setDataplaylist]=useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
-
+  
+  const fetchDatasong = async () => {
+    try {
+      const response = await Apisong.apigetallsong(currentPage, itemsPerPage);
+      setData(response.data.result.data);
+      setTotalItems(response.data.result.totalElements);
+    } catch (err) {}
+  };
+  const fetchDataplaylist= async () => {
+    try {
+      const response = await Apiplaylist.apigetallalbum(1,6);
+      setDataplaylist(response.data.result.data);
+    } catch (err) {}
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Apisong.apigetallsong(currentPage, itemsPerPage);
-        setData(response.data.result.data);
-        setTotalItems(response.data.result.totalElements);
-      } catch (err) {}
-    };
-
-    fetchData();
+   
+    fetchDataplaylist();
+    fetchDatasong();
+    // initializeAlbumdata(dataplaylist)
   }, [currentPage]);
   const callbacksong=()=>{
     initializeSongsData(data)
-    console.log(songsData)
+
+    
   }
+  useEffect(() => {
+    if (dataplaylist.length > 0) {
+      initializeAlbumdata(dataplaylist);
+    }
+  }, [dataplaylist]);
+
 
 
   const handlePageChange = (page) => {
@@ -42,7 +59,7 @@ const DisplayHome = () => {
       <div className="mb-4">
         <h1 className="my-5 font-bold text-2xl">Featured Charts</h1>
         <div className="flex overflow-auto">
-          {albumsData.map((item, index) => (
+          {dataplaylist.map((item, index) => (
             <Albumitem
               key={index}
               name={item.name}

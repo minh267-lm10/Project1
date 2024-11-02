@@ -71,7 +71,7 @@ export const assets = {
     clock_icon
 }
 
-export const albumsData = [
+export let albumsData = [
     {
         id: 0,
         name: "Top 50 Global",
@@ -135,7 +135,7 @@ export let songsData = [
             // ]
     }
 ]
-export const albumsDataca4 = [
+export let albumsDataca4 = [
   
     {
         id: 4,
@@ -199,4 +199,7 @@ export let songsDataca4 = [
 ]
 export const initializeSongsData = (data) => {
     songsData = data;
+};
+export const initializeAlbumdata = (data) => {
+    albumsDataca4 = data;
 };
