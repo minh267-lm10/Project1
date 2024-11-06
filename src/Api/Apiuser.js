@@ -14,7 +14,22 @@ const Apiuser={
         // identity/users/registration/guest
         const url='/identity/users/registration/guest'
         return axiosclient.post(url,data);
-
+    },
+    apifollow(userId)
+    {
+        const url=`/profile/users/followUserOrUnfollowUser?targetUserId=${userId}`
+        return axiosclient.post(url)
+    },
+    apicreatepost(data)
+    {
+        
+        const url='/post/create'
+        return axiosclient.post(url,data)
+    },
+    apigetuserpost()
+    {
+        const  url='/post/my-posts'
+        return axiosclient.get(url)
     }
 }
 export default Apiuser

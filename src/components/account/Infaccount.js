@@ -51,7 +51,7 @@ function Infaccount(props) {
       className="w-48 h-48 rounded-full object-cover"
     />
   ) : (
-    <p>{datauser?.username ? datauser.username.charAt(0).toUpperCase() : " "}</p>
+    <p>{datauser?.username ? datauser.username.charAt(0).toUpperCase() : "A "}</p>
   )}
 </div>
         
@@ -59,7 +59,8 @@ function Infaccount(props) {
         {/* Thông tin hồ sơ */}
         <div className="flex flex-col items-start ml-8">
           <h4 className="text-lg mb-2">Profile</h4>
-          <h2 className="text-5xl font-bold mb-4 md:text-7xl">{(datauser?.lastName+" " +datauser?.firstName)|| 'Admin'}</h2>
+          {console.log("datauser:",datauser)}
+          <h2 className="text-5xl font-bold mb-4 md:text-7xl">{datauser.username? (datauser?.lastName+" " +datauser?.firstName):'Admin'}</h2>
           <h4 className="text-lg mb-2">Thỏa thích sáng tạo</h4>
           <p className="mt-1 text-gray-300">
             <b>2 Playlist công khai</b> <span className="mx-2">•</span>

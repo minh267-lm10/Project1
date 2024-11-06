@@ -1,50 +1,44 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { songsDataca4 } from "../assets/assets";
 import { albumsDataca4 } from "../assets/assets";
 import { PlayerContext } from "../context/PlayerContext"
 import Apisong from "../Api/Apisong";
-// id: 3,
-// name: "Song Four",
-// image: img4,
-// file: song1,
-// desc: "Put a smile on your face with these happy tunes",
-// duration: "2:50"
+import Apisinger from "../Api/Apisinger";
+
 const SideBar = () => {
     const {searchActive, setSearchActive} = useContext(PlayerContext);
     const {searchTerm, setSearchTerm} = useContext(PlayerContext);
-    const {setSearchResults} = useContext(PlayerContext);
+    const {setSearchResults,setSearchResultsinger} = useContext(PlayerContext);
+    
     const navigate = useNavigate();
-    
-    
-
-  const checkSearch = async(e) => {
-    setSearchTerm(e.target.value);
-    if (searchTerm.length > 0) {
-      let results= await Apisong.apisearchsong(searchTerm)
-      
-      setSearchResults(results.data.result.data);
-    } else setSearchResults([]);
-  };
-  const checkactive = () => {
-    if(searchActive==false)
-    {
-        setSearchActive(!searchActive);
-        setSearchTerm("");
-        navigate('/search')
-    }
-    else{
-        setSearchActive(!searchActive);
-        navigate('/')
-
-    }
-
-  };
+    const handleSearchChange=(e)=>{
+    setSearchTerm(e.target.value)
+  }
   const checkactive2=()=>{
-    setSearchActive(false);      
+    setSearchTerm('')          
     navigate('/')
   }
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+        if (searchTerm.length > 0) {
+            try {
+                const results = await Apisong.apisearchsong(searchTerm);
+                const results2 = await Apisinger.apisearchsinger(searchTerm);
+                setSearchResults(results.data.result.data);
+                setSearchResultsinger(results2.data.result.data);
+            } catch (error) {
+                console.error("lỗi api ở sidebar tim kiem:", error);
+            }
+        } else {
+            setSearchResults([]);
+            setSearchResultsinger([]);
+        }
+    };
+
+    fetchSearchResults();
+}, [searchTerm, setSearchResults, setSearchResultsinger]);
 
   return (
     <div className="w-[25%] h-full p-2 flex-col gap-2 text-white hidden lg:flex">
@@ -60,31 +54,34 @@ const SideBar = () => {
 
         {/* Search */}
         <div
-          onClick={checkactive}
+          
           className="flex items-center gap-3 pl-8 cursor-pointer"
         >
           <img className="w-6" src={assets.search_icon} alt="search" />
-          <p className="font-bold">Search</p>
+          <p className="font-bold" >Search</p>
         </div>
       </div>
 
       {/* Hiển thị SearchBar nếu searchActive là true */}
-      {searchActive && (
+     
         <>
           <div className="bg-[#242424] p-4 m-2 rounded">
             <input
               type="text"
               className="w-full p-2 rounded bg-[#242424] text-white outline-none"
               placeholder="Search for songs, albums, or artists..."
-              onChange={(e) => {
-                checkSearch(e);
-              }}
+              // onChange={(e) => {
+              //   checkSearch(e);
+              // }}
+              onChange={handleSearchChange}
+                    value={searchTerm}
+              onClick={()=>{navigate('/search')}}
               
             />
           </div>
      
         </>
-      )}
+    
 
       <div className="bg-[#121212] h-[85%] rounded">
         <div className="p-4 flex items-center justify-between">

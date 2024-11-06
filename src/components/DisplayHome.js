@@ -8,13 +8,14 @@ import { albumsDataca4, initializeSongsData } from "../assets/assets";
 import {initializeAlbumdata}  from "../assets/assets";
 
 
+
 const DisplayHome = () => {
   const [data, setData] = useState([]);
   const [dataplaylist,setDataplaylist]=useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
-  
+  const allorpost=true;
   const fetchDatasong = async () => {
     try {
       const response = await Apisong.apigetallsong(currentPage, itemsPerPage);
@@ -55,7 +56,7 @@ const DisplayHome = () => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   return (
     <>
-      <NavBar />
+      <NavBar allorpost={allorpost} />
       <div className="mb-4">
         <h1 className="my-5 font-bold text-2xl">Featured Charts</h1>
         <div className="flex overflow-auto">

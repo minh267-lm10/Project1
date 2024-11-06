@@ -1,27 +1,33 @@
 import React,{useContext, useEffect} from 'react';
-import PlayerContextProvider, { PlayerContext } from '../../context/PlayerContext';
-import { assets, songsData } from '../../assets/assets';
+import  { PlayerContext } from '../../context/PlayerContext';
+import { assets} from '../../assets/assets';
 import { initializeSongsData } from '../../assets/assets';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 function Search(props) {
     const {searchActive, setSearchActive,playWithId} = useContext(PlayerContext);
-    const {searchTerm} = useContext(PlayerContext);
-    const {searchResults} = useContext(PlayerContext);
+    const {setSearchTerm} = useContext(PlayerContext);
+    const {searchResults,searchResultsinger} = useContext(PlayerContext);
+   
+    const navigate = useNavigate();
+
     let setnhacchay=(index)=>{
       initializeSongsData(searchResults)
       playWithId(index)
-    }
-    
-
-    
+    } 
     return (
 
         <div>
-            <>Đây là kết quả trang tìm kiếm 
+            <>
+            <h2 className="my-5 font-bold text-2xl">Đây là trang kết quả tìm kiếm</h2>
+
             <ul className="list-none">
             {" "}
             {/* Áp dụng class list-none */}
-            {searchTerm != "" && (
+            {searchResults && (
               <>
+              <h2 className="my-5 font-bold text-2xl">Bài hát</h2>
+
               <div className="grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7]">
                 <p><b className="mr-4">#</b>Tên</p>
                 <p>Miêu tả</p>
@@ -44,6 +50,38 @@ function Search(props) {
                     </div>
                 ))
             }
+            {searchResultsinger&&(<>
+              <h2 className="my-5 font-bold text-2xl">Nghệ sĩ</h2>
+              <div className="grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7]">
+                <p><b className="mr-4">#</b>Tên</p>
+                <p>Quốc gia</p>
+                <p className="hidden sm:block ">Vai trò</p>
+                <p className="text-[15px] text-center ">Ngày sinh</p>
+                
+            </div>
+              {
+                
+                searchResultsinger.map((item, index) => (
+                    <div onClick={()=>{navigate(`/infoaccountsinger/${item.userId}`)}} key={index} className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer">
+                        <p className="text-white">
+                            <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
+                            <img className="inline w-10 mr-5 " src={`http://localhost:8888/api/v1/music${item.img}`}  alt="" />
+                            {item.username}
+                        </p>
+                        <p className="text-[15px]">{ item.city}</p>
+                        <p className="text-[15px]">Ca sĩ</p>
+
+                        
+                        {/* <p className="text-[15px] hidden sm:block ">5 days ago</p> */}
+                        <p className="text-[15px] text-center ">{item.dob}</p>
+                    </div>
+                ))
+            }
+            </>)
+
+            }
+           
+
               </>
             )}
           </ul>

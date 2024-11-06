@@ -13,9 +13,12 @@ const PlayerContextProvider = (props) => {
   const [playStatus, setPlayStatus] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState();
+  const [searchResultsinger, setSearchResultsinger] = useState();
+
   const [checkdau, setcheckdau] = useState(false);
   const[datauser,setDatauser]=useState([]);
+  
   const [index,setIndex]=useState()
   const [time, setTime] = useState({
     currentTime: {
@@ -136,7 +139,9 @@ const PlayerContextProvider = (props) => {
     searchTerm,
     setSearchTerm,
     datauser,
-    setDatauser
+    setDatauser,
+    searchResultsinger,setSearchResultsinger
+    
   };
   // useEffect(()=>{
 

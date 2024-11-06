@@ -6,19 +6,24 @@ import '../css/menudrop.css';
 import Apiuser from "../Api/Apiuser";
 import { getToken, removeToken } from "../Service/Localtokenservice";
 
-const NavBar = () => {
-    const { datauser, setDatauser } = useContext(PlayerContext);
+const NavBar = ({allorpost}) => {
+    const { datauser, setDatauser,setSearchTerm } = useContext(PlayerContext);
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
+    
 
     const checklogin = () => {
-            navigate('/Login');
+        setSearchTerm('')       
+        navigate('/Login');
     };
 
     const setlogout = () => {
         removeToken();
+        setSearchTerm('')
         setDatauser([])
+   
+
         navigate('/');
     };
 
@@ -89,7 +94,8 @@ const NavBar = () => {
                                     <ul>                          
                                         <li><a href="#account">User: {datauser?.username || 'Admin'}</a></li>
                                         <li><a href="#profile">City: {datauser?.city || 'Unknown'}</a></li>
-                                        <li><a onClick={() => { navigate('/infoaccount') }}>Profile</a></li>                                               
+                                        <li><a onClick={() => {setSearchTerm('')
+                                             navigate('/infoaccount') }}>Profile</a></li>                                               
                                         <li><a onClick={setlogout}>Logout</a></li>
                                     </ul>
                                 </div>
@@ -98,11 +104,19 @@ const NavBar = () => {
                     )}
                 </div>
             </div>
-            <div className="flex items-center gap-2 mt-4">
-                <p className="bg-white text-black px-4 py-1 rounded-2xl cursor-pointer">All</p>
-                <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer">Music</p>
-                <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer">Podcasts</p>
-            </div>
+            {allorpost===true&&(
+                <>  <div className="flex items-center gap-2 mt-4">
+                <p className="bg-white text-black px-4 py-1 rounded-2xl cursor-pointer" onClick={()=>navigate('/')}>All</p>
+                <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer" onClick={()=>navigate('/post')}>Post by artist</p>
+            </div></>
+            )}
+            {allorpost===false&&(
+                <>  <div className="flex items-center gap-2 mt-4">
+                <p className="bg-black text-white px-4 py-1 rounded-2xl cursor-pointer" onClick={()=>navigate('/')}>All</p>
+                <p className="bg-white text-black px-4 py-1 rounded-2xl cursor-pointer" onClick={()=>navigate('/post')}>Post by artist</p>
+            </div></>
+            )}
+          
         </>
     );
 };

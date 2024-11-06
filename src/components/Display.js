@@ -2,10 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import DisplayHome from "./DisplayHome";
 import DisplayAlbum from "./DisplayAlbum";
-import { albumsData } from "../assets/assets";
+import { albumsData,img1 } from "../assets/assets";
 // import infoaccount from "./account/Infoaccount";
 import Infaccount from "./account/Infaccount";
 import Search from "./search/Search";
+import Infaccountsinger from "./account/Infaccountsinger";
+import Postartist from "./postbyartist/Postartist";
 
 const Display = () => {
 
@@ -30,13 +32,14 @@ const Display = () => {
 
     return (
         <div ref={displayRef} className="w-[100%] m-2 px-6 pt-4 rounded bg-[#121212] text-white overflow-auto lg:w-[75%] lg:ml-0">
+            
             <Routes>
                 <Route path="/" element={<DisplayHome />} />
                 <Route path="/album/:id" element={<DisplayAlbum />} />
                 <Route path="/infoaccount" element={<Infaccount />} />
+                <Route path="/infoaccountsinger/:userId" element={<Infaccountsinger />} />
                 <Route path="/search" element={<Search />} />
-
-
+                <Route path="/post" element={<Postartist />} />
 
             </Routes>
         </div>

@@ -13,7 +13,10 @@ const Apisong={
         return axiosclient.get(url)
     },
     apisearchsong(item){
-        const url=`http://localhost:8888/api/v1/music/songs/seachSong?name=${item}`
+        // const url=`http://localhost:8888/api/v1/music/songs/seachSong?name=${item}`
+        const url=`/music/songs/seachSong?name=${item}`
+
+        
         return axiosclient.get(url)
     }
 
