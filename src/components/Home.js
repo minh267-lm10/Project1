@@ -5,7 +5,7 @@ import Display from "./Display";
 import { PlayerContext } from "../context/PlayerContext";
 
 function Home(props) {
-    const { audioRef, track } = useContext(PlayerContext);
+    const { audioRef, track ,next, isLoop} = useContext(PlayerContext);
     const [audioUrl, setAudioUrl] = useState(null);
 
     useEffect(() => {
@@ -45,7 +45,14 @@ function Home(props) {
             </div>
             <div>
                 <Player />         
-                    <audio ref={audioRef} src={audioUrl} preload="auto" />     
+                    <audio ref={audioRef} src={audioUrl} preload="auto" onEnded={() => {
+                        if (isLoop) {
+                            audioRef.current.currentTime = 0; // Quay lại đầu bài hát
+                            audioRef.current.play(); // Phát lại
+                        } else {
+                            next(); // Chuyển bài nếu không có loop
+                        }
+                    }}/>     
             </div>
         </div>
     );

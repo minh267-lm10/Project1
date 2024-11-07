@@ -15,6 +15,13 @@ const PlayerContextProvider = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState();
   const [searchResultsinger, setSearchResultsinger] = useState();
+  //phan nhac cg
+  const [volume, setVolume] = useState(1);
+  const [isShuffle, setIsShuffle] = useState(false);
+  const [isLoop, setIsLoop] = useState(false); // Trạng thái để kiểm tra chế độ loop
+
+
+
 
   const [checkdau, setcheckdau] = useState(false);
   const[datauser,setDatauser]=useState([]);
@@ -31,7 +38,9 @@ const PlayerContextProvider = (props) => {
     },
   });
 
-
+  const toggleLoop = () => {
+    setIsLoop(!isLoop);
+};
   const play = () => {
     audioRef.current.play();
     setPlayStatus(true);
@@ -71,7 +80,18 @@ const PlayerContextProvider = (props) => {
     
   };
 
+//   if (isShuffle) {
+//     const randomIndex = Math.floor(Math.random() * 8) + 1;
+//     await setTrack(songsData[randomIndex]);
+// } else if (track.id < songsData.length - 1) {
+//     await setTrack(songsData[track.id + 1]);
+// }
+
   const next = async () => {
+    if(isShuffle){
+      const randomIndex =Math.floor(Math.random()*songsData.length);
+      await setTrack(songsData[randomIndex])
+    }else
     setIndex((prevIndex) => {
       if (prevIndex < songsData.length -1) { 
         const newIndex = prevIndex + 1;
@@ -80,11 +100,16 @@ const PlayerContextProvider = (props) => {
       }
       return prevIndex; 
     });
+ 
   
     await setTimeout(() => {
       audioRef.current.play();
     }, 500);
     setPlayStatus(true);
+  };
+     // Hàm bật/tắt shuffle
+     const toggleShuffle = () => {
+      setIsShuffle(!isShuffle);
   };
   
 
@@ -114,6 +139,18 @@ const PlayerContextProvider = (props) => {
       };
     }, 1000);
   }, [audioRef]);
+  const adjustVolume = (e) => {
+    const volumeBarWidth = e.currentTarget.offsetWidth;
+    const offsetX = e.nativeEvent.offsetX;
+    const newVolume = offsetX / volumeBarWidth; // Tính toán giá trị âm lượng
+    setVolume(newVolume); // Cập nhật giá trị âm lượng
+
+    // Cập nhật âm lượng của audioRef
+    if (audioRef.current) {
+        audioRef.current.volume = newVolume;
+    }
+};
+
 
   const contextValue = {
     audioRef,
@@ -140,7 +177,12 @@ const PlayerContextProvider = (props) => {
     setSearchTerm,
     datauser,
     setDatauser,
-    searchResultsinger,setSearchResultsinger
+    searchResultsinger,setSearchResultsinger,
+    volume, setVolume, // Thêm volume và setVolume vào context
+    adjustVolume,
+    isShuffle, toggleShuffle,
+    isLoop, // Trạng thái loop
+    toggleLoop // H
     
   };
   // useEffect(()=>{

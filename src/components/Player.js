@@ -4,7 +4,7 @@ import { PlayerContext } from "../context/PlayerContext";
 
 const Player = () => {
 
-    const { track,checkdau, seekBar, seekBg, playStatus, play, pause, time, previous, next, seekSong } = useContext(PlayerContext);
+    const { track,checkdau, seekBar, seekBg, playStatus, play, pause, time, previous, next, seekSong,adjustVolume,volume,isShuffle, toggleShuffle, isLoop, toggleLoop } = useContext(PlayerContext);
 
     return (
         <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
@@ -17,10 +17,16 @@ const Player = () => {
                 </div>
             </>)}
                
+
             </div>
             <div className="flex flex-col items-center gap-1 m-auto">
                 <div className="flex gap-4">
-                    <img className="w-4 cursor-pointer" src={assets.shuffle_icon} alt="" />
+                <img 
+                        onClick={toggleShuffle} 
+                        className="w-4 cursor-pointer" 
+                        src={isShuffle ? assets.greensuffle_icon : assets.shuffle_icon} // Sử dụng ảnh greenshuffle khi bật shuffle
+                        alt="Shuffle" 
+                    />
                     <img onClick={previous} className="w-4 cursor-pointer" src={assets.prev_icon} alt="" />
                     {playStatus
                         ? <img onClick={pause} className="w-4 cursor-pointer" src={assets.pause_icon} alt="" />
@@ -29,7 +35,7 @@ const Player = () => {
 
 
                     <img onClick={next} className="w-4 cursor-pointer" src={assets.next_icon} alt="" />
-                    <img className="w-4 cursor-pointer" src={assets.loop_icon} alt="" />
+                    <img className="w-4 cursor-pointer" onClick={toggleLoop} src={isLoop?assets.greenloop :assets.loop_icon} alt="" />
                 </div>
                 <div className="flex items-center gap-5">
                     <p>{time.currentTime.minute}:{time.currentTime.second}</p>
@@ -45,8 +51,14 @@ const Player = () => {
                 <img className="w-4" src={assets.queue_icon} alt="" />
                 <img className="w-4" src={assets.speaker_icon} alt="" />
                 <img className="w-4" src={assets.volume_icon} alt="" />
-                <div className="w-20 bg-slate-50 h-1 rounded">
-
+                <div 
+                    className="w-20 bg-slate-50 h-1 rounded cursor-pointer" 
+                    onClick={adjustVolume} // Gọi hàm từ context
+                >
+                    <div 
+                        className="h-full bg-green-800 rounded" 
+                        style={{ width: `${volume * 100}%` }} // Thanh thể hiện âm lượng
+                    />
                 </div>
                 <img className="w-4" src={assets.mini_player_icon} alt="" />
                 <img className="w-4" src={assets.zoom_icon} alt="" />

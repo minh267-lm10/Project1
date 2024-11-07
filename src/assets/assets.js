@@ -43,12 +43,17 @@ import song2 from './song2.mp3'
 import song3 from './song3.mp3'
 import img100 from './img100.jpg'
 import img200 from './img200.jpg'
+import greensuffle_icon from './greenshuffle.png'
+import greenloop from './greenloop.png'
+
 
 export const assets = {
     bell_icon,
     home_icon,
     like_icon,
     loop_icon,
+    greensuffle_icon,
+    greenloop,
     mic_icon,
     next_icon,
     play_icon,

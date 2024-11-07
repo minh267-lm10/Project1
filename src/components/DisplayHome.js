@@ -14,7 +14,7 @@ const DisplayHome = () => {
   const [dataplaylist,setDataplaylist]=useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
   const allorpost=true;
   const fetchDatasong = async () => {
     try {
