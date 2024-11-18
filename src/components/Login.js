@@ -6,6 +6,7 @@ import Apiuser from "../Api/Apiuser";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../Service/Localtokenservice";
 import { OAuthConfig } from "./configurations/configuration";
+import { FcGoogle } from "react-icons/fc";
 function Login(props) {
   let [Username, setUsername] = useState();
   let [Password, setPassword] = useState();
@@ -37,11 +38,9 @@ function Login(props) {
       setToken(token);
       navigate("/");
     } catch (error) {
-      let a= error.response.data.message
-      alert("kiểm tra lại thông tin đăng nhập:"+a);
-    
+      let a = error.response.data.message;
+      alert("kiểm tra lại thông tin đăng nhập:" + a);
     }
-    
   };
   return (
     <div className="Baoboc">
@@ -69,15 +68,40 @@ function Login(props) {
           <button type="submit" onClick={checklogin}>
             Login
           </button>
-          <button type="submit" className="regis" onClick={handleContinueWithGoogle}>
+          <button
+            type="submit"
+            className="regis"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              padding: "10px 20px",
+              backgroundColor: "#fff",
+              color: "#000",
+              // border: "1px solid #ccc",
+              //  borderRadius: "5px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+            onClick={handleContinueWithGoogle}
+          >
+            <FcGoogle style={{ width: "20px", height: "20px" }} />
             Login with Google
           </button>
-          <button type="submit" className="regis" onClick={()=>{navigate('/register')}}>
+
+          <button
+            type="submit"
+            className="regis"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
             Register
           </button>
         </form>
       </div>
-          
     </div>
   );
 }
