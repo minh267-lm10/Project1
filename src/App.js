@@ -15,6 +15,7 @@ import {
 import NavBar from "./components/NavBar";
 import Check from "./components/Check";
 import Register from "./components/Login,Register/Register";
+import Authenticate from "./components/Login,Register/Authenticate";
 
 function App() {
   // const { audioRef, track } = useContext(PlayerContext);
@@ -38,6 +39,13 @@ function App() {
           path="/Register"
           element={
             <Register/>
+          }     
+
+        />
+         <Route
+          path="/authenticate"
+          element={
+            <Authenticate/>
           }     
 
         />

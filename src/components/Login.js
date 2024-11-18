@@ -5,10 +5,26 @@ import { FaUser } from "react-icons/fa";
 import Apiuser from "../Api/Apiuser";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../Service/Localtokenservice";
+import { OAuthConfig } from "./configurations/configuration";
 function Login(props) {
   let [Username, setUsername] = useState();
   let [Password, setPassword] = useState();
   let navigate = useNavigate();
+
+  const handleContinueWithGoogle = () => {
+    const callbackUrl = OAuthConfig.redirectUri;
+    const authUrl = OAuthConfig.authUri;
+    const googleClientId = OAuthConfig.clientId;
+
+    const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+      callbackUrl
+    )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+
+    console.log(targetUrl);
+
+    window.location.href = targetUrl;
+  };
+
   let checklogin = async (e) => {
     e.preventDefault();
     try {
@@ -52,6 +68,9 @@ function Login(props) {
           </div>
           <button type="submit" onClick={checklogin}>
             Login
+          </button>
+          <button type="submit" className="regis" onClick={handleContinueWithGoogle}>
+            Login with Google
           </button>
           <button type="submit" className="regis" onClick={()=>{navigate('/register')}}>
             Register

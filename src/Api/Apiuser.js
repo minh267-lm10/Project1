@@ -30,6 +30,10 @@ const Apiuser={
     {
         const  url='/post/my-posts'
         return axiosclient.get(url)
+    },
+    apisinginwithgg()
+    {
+        return;
     }
 }
 export default Apiuser

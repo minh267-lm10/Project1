@@ -120,25 +120,52 @@ const PlayerContextProvider = (props) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      audioRef.current.ontimeupdate = () => {
-        seekBar.current.style.width =
-          Math.floor(
-            (audioRef.current.currentTime / audioRef.current.duration) * 100
-          ) + "%";
-        setTime({
-          currentTime: {
-            second: Math.floor(audioRef.current.currentTime % 60),
-            minute: Math.floor(audioRef.current.currentTime / 60),
-          },
-          totalTime: {
-            second: Math.floor(audioRef.current.duration % 60),
-            minute: Math.floor(audioRef.current.duration / 60),
-          },
-        });
+    // Kiểm tra nếu audioRef và seekBar còn tồn tại
+    if (audioRef.current && seekBar.current) {
+      // Đảm bảo gọi lại sự kiện play khi quay lại trang
+      const onTimeUpdate = () => {
+        // Kiểm tra nếu audioRef.current không phải null
+        if (audioRef.current) {
+          const currentTime = audioRef.current.currentTime;
+          const duration = audioRef.current.duration;
+  
+          if (seekBar.current) {
+            seekBar.current.style.width =
+              Math.floor((currentTime / duration) * 100) + "%";
+          }
+  
+          setTime({
+            currentTime: {
+              second: Math.floor(currentTime % 60),
+              minute: Math.floor(currentTime / 60),
+            },
+            totalTime: {
+              second: Math.floor(duration % 60),
+              minute: Math.floor(duration / 60),
+            },
+          });
+        }
       };
-    }, 1000);
-  }, [audioRef]);
+  
+      // Gán sự kiện ontimeupdate cho audioRef.current
+      audioRef.current.ontimeupdate = onTimeUpdate;
+  
+      // Nếu audioRef không phát nhạc, thử phát nhạc lại
+      if (audioRef.current.paused && playStatus) {
+        audioRef.current.play();
+      }
+  
+      // Cleanup function để loại bỏ sự kiện khi component bị hủy
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.ontimeupdate = null; // Xóa sự kiện khi component bị hủy
+        }
+      };
+    }
+  }, [audioRef, seekBar, playStatus]); // useEffect sẽ chạy lại khi audioRef hoặc seekBar thay đổi
+  
+  
+  
   const adjustVolume = (e) => {
     const volumeBarWidth = e.currentTarget.offsetWidth;
     const offsetX = e.nativeEvent.offsetX;
