@@ -10,7 +10,7 @@ const Player = () => {
         <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
             <div className="hidden lg:flex items-center gap-4">
             {checkdau&&(<>
-                <img className="w-12" src={`http://localhost:8888/api/v1/music${track.image}`} alt="" />
+                <img className="w-12" src={track.image} alt="" />
                 <div>
                     {/* <p>id là:{track.id}</p> */}
                     <p>{track.name.slice(0, 20)}</p>

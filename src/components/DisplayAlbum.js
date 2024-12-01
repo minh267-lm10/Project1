@@ -36,7 +36,7 @@ const DisplayAlbum = () => {
             
             
             <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-end">
-                <img className="w-48 rounded "src={`http://localhost:8888/api/v1/music${selectedAlbum.image}`}  alt="" />
+                <img className="w-48 rounded "src={selectedAlbum.image}  alt="" />
                 <div className=" flex flex-col">
                     <p>Playlist</p>
                     <h2 className="text-5xl font-bold mb-4 md:text-7xl">{selectedAlbum.name}</h2>
@@ -45,7 +45,7 @@ const DisplayAlbum = () => {
                         <img className="inline-block " src={assets.spotify_logo} alt="" /> 
                          <b>Spotify</b>
                         .1,323,154 likes
-                        .<b>50 songs,</b> about 2 hr 30 min
+                        .<b>{dataitem.length} songs</b> about 2 hr 30 min
                     </p>
                 </div>
             </div> 
@@ -69,10 +69,10 @@ const DisplayAlbum = () => {
                         <p className="text-[15px] text-center ">{item.duration}</p> */}
                         <p className="text-white">
                             <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
-                            <img className="inline w-10 mr-5 " src={`http://localhost:8888/api/v1/music${item.image}`}  alt="" />
+                            <img className="inline w-10 mr-5 " src={item.image}  alt="" />
                             {item.name}
                         </p>
-                        <p className="text-[15px]">{ }albumData.name</p>
+                        <p className="text-[15px]">{ selectedAlbum.name}</p>
                         <p className="text-[15px] hidden sm:block ">5 days ago</p>
                         <p className="text-[15px] text-center ">5.00</p>
                     </div>

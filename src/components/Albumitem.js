@@ -10,8 +10,8 @@ const Albumitem = ({ image, name, desc, id }) => {
     useEffect(()=>{
         const checkimgnull=async()=>{
             try {
-             let   res= await axios.get(`http://localhost:8888/api/v1/music${image}`)
-             setcheckimg(`http://localhost:8888/api/v1/music${image}`)
+             let   res= await axios.get(image)
+             setcheckimg(image)
                 
             } catch (error) {
                 setcheckimg('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFkbvS5hOclbltXVzheWMVot9nZihE7F8gaw&s')

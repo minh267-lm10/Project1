@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import DisplayHome from "./DisplayHome";
 import DisplayAlbum from "./DisplayAlbum";
@@ -8,9 +8,11 @@ import Infaccount from "./account/Infaccount";
 import Search from "./search/Search";
 import Infaccountsinger from "./account/Infaccountsinger";
 import Postartist from "./postbyartist/Postartist";
+import { PlayerContext } from "../context/PlayerContext";
+import AddPlaylist from "./AddPlaylist";
 
 const Display = () => {
-
+    const{check}=useContext(PlayerContext)
     const displayRef = useRef();
     const location = useLocation();
     //console.log(location);
@@ -38,8 +40,10 @@ const Display = () => {
                 <Route path="/album/:id" element={<DisplayAlbum />} />
                 <Route path="/infoaccount" element={<Infaccount />} />
                 <Route path="/infoaccountsinger/:userId" element={<Infaccountsinger />} />
-                <Route path="/search" element={<Search />} />
+                <Route path="/search" element={<Search check={check} />} />
                 <Route path="/post" element={<Postartist />} />
+                <Route path="/addplaylist" element={<AddPlaylist />} />
+
 
             </Routes>
         </div>

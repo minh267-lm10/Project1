@@ -11,7 +11,7 @@ function Home(props) {
     useEffect(() => {
         const fetchAudio = async () => {  
             try {
-                const response = await fetch(`http://localhost:8888/api/v1/music${track.file}`);
+                const response = await fetch(track.file);
                 if (!response.ok) {
                     throw new Error("Failed to fetch audio");
                 }

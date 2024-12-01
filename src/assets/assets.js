@@ -130,7 +130,7 @@ export let songsData = [
             title: null,
             album: null,
             duration: 0,
-            file: "/data/stream/HayTraoChoAnh-SonTungMTPSnoopDogg-6010660.mp3",
+            file: "http://localhost:8888/api/v1/music/data/stream/ThangDienLive-JustaTeePhuongLy-6066987.mp3",
             check:"false"
             // "image": "/data/img/anh1.jpg",
             // "desc": null,

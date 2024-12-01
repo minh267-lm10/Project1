@@ -69,7 +69,7 @@ function Infaccountsinger(props) {
         <div className="bg-black text-gray-400 text-9xl w-48 h-48 rounded-full flex items-center justify-center cursor-pointer">
     {datasinger?.img ? (
       <img
-         src={`http://localhost:8888/api/v1/music${datasinger.img}`}
+         src={datasinger.img}
         alt="Profile"
         
         className="w-48 h-48 rounded-full object-cover"

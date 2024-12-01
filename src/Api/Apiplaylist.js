@@ -20,6 +20,11 @@ const Apiplaylist={
         const url=`/music/playlists/getMyPlaylist?page=1&size=3`
        
         return axiosclient.get(url)
+    },
+    apicreateplaylist(data)
+    {
+      const url="/music/playlists/createPlaylist"
+      return axiosclient.post(url,data )
     }
     
 }

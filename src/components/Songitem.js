@@ -11,7 +11,7 @@ const Songitem = ({ image, name, desc, id ,callbacksong,index}) => {
     return (
         <div onClick={()=>{setnhac(index)}} className="min-w-[180px] p-2 px-3 rounded cursor-pointer hover:bg-[#ffffff26]">
             {/* Sử dụng backticks để định nghĩa chuỗi với biến */}
-            <img className="rounded" src={`http://localhost:8888/api/v1/music${image}`} alt={name} />
+            <img className="rounded" src={image} alt={name} />
             <p className="font-bold mt-2 mb-1">{name}</p>
             <p className="text-slate-200 text-sm">{desc}</p>
         </div>

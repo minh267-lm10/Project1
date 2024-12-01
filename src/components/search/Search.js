@@ -41,7 +41,7 @@ function Search(props) {
                     <div onClick={() => {setnhacchay(index)}} key={index} className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer">
                         <p className="text-white">
                             <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
-                            <img className="inline w-10 mr-5 " src={`http://localhost:8888/api/v1/music${item.image}`}  alt="" />
+                            <img className="inline w-10 mr-5 " src={item.image}  alt="" />
                             {item.name}
                         </p>
                         <p className="text-[15px]">{ item.desc}</p>
@@ -65,8 +65,8 @@ function Search(props) {
                     <div onClick={()=>{navigate(`/infoaccountsinger/${item.userId}`)}} key={index} className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer">
                         <p className="text-white">
                             <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
-                            <img className="inline w-10 mr-5 " src={`http://localhost:8888/api/v1/music${item.img}`}  alt="" />
-                            {item.username}
+                            <img className="inline w-10 mr-5 " src={item.img} alt="" />
+                            {item.stageName}
                         </p>
                         <p className="text-[15px]">{ item.city}</p>
                         <p className="text-[15px]">Ca sĩ</p>

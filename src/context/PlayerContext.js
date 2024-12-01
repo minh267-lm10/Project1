@@ -15,6 +15,7 @@ const PlayerContextProvider = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState();
   const [searchResultsinger, setSearchResultsinger] = useState();
+  const[check,setCheck]=useState(false);
   //phan nhac cg
   const [volume, setVolume] = useState(1);
   const [isShuffle, setIsShuffle] = useState(false);
@@ -208,6 +209,7 @@ const PlayerContextProvider = (props) => {
     volume, setVolume, // Thêm volume và setVolume vào context
     adjustVolume,
     isShuffle, toggleShuffle,
+    check,setCheck,
     isLoop, // Trạng thái loop
     toggleLoop // H
     

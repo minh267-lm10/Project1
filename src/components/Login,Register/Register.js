@@ -70,7 +70,7 @@ function Register(props) {
             navigate('/Login')
             
         } catch (error) {
-         alert("Lỗi rồi" +" "+error.response.data.message)
+         alert("Lỗi:" +" "+error.response.data.message)
         //   console.log("res là:",error.res)
         let x =error.response.data
           console.log("erro là:",x)
