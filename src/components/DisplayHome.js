@@ -25,7 +25,7 @@ const DisplayHome = () => {
   };
   const fetchDataplaylist= async () => {
     try {
-      const response = await Apiplaylist.apigetallalbum(1,6);
+      const response = await Apiplaylist.apigetallalbum(1,8);
       setDataplaylist(response.data.result.data);
     } catch (err) {}
   };

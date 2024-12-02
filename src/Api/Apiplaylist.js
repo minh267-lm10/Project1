@@ -17,7 +17,7 @@ const Apiplaylist={
     },
     apigetallplaylistuser(currentPage,itemsPerPage)
     {
-        const url=`/music/playlists/getMyPlaylist?page=1&size=3`
+        const url=`/music/playlists/getMyPlaylist?page=1&size=10`
        
         return axiosclient.get(url)
     },

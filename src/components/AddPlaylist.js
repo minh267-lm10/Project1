@@ -7,11 +7,8 @@ import Apisong from '../Api/Apisong';
 import Apiplaylist from '../Api/Apiplaylist';
 
 const AddPlaylist = () => {
-    const [playlistImage, setPlaylistImage] = useState(assets.playlist_icon || "default_icon_url");
     const [playlistName, setPlaylistName] = useState("My Playlist");
     const [isEditing, setIsEditing] = useState(false);
-    const {datauser}=useContext(PlayerContext)
-
     const [searchTerm, setSearchTerm] = useState('');
     const [songs, setSongs] = useState([]);
     const [filteredSongs, setFilteredSongs] = useState([]);
@@ -65,7 +62,6 @@ const AddPlaylist = () => {
     };
 
     const handleCreatePlaylist = async () => {
-        const token = "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJkZXZ0ZXJpYS5jb20iLCJzdWIiOiIxIiwiZXhwIjoxNzMzMDgwNjIyLCJpYXQiOjE3MzMwNDQ2MjIsImp0aSI6IjgxZDc1YzZiLWUyYmItNDI5Ny1iZmFkLTAyMDYxODYyYzQwNyIsInNjb3BlIjoiUk9MRV9BUlRJU1QgbWFuYWdlX293bl9tdXNpYyB2aWV3X3N0YXRpc3RpY3MgbGlzdGVuX3ByZW1pdW1fbXVzaWMgbGlzdGVuX2ZyZWVfbXVzaWMgdXBsb2FkX211c2ljIn0.TL1f2p48QxZLybF7b-QxYv-R2czZcQvUxuW_ME2pe7C-TXupb18uHbqlbOTRd16Yq2H9kbDDKaVRSjVSIydWjw"
         const playlistData = {
             name: playlistName,
             desc: `Collection of ${playlistName}`,
@@ -74,16 +70,7 @@ const AddPlaylist = () => {
         };
 
         try {
-            // const response = await axios.post(
-            //     'http://localhost:8888/api/v1/music/playlists/createPlaylist',
-            //     playlistData,
-            //     {
-            //         headers: {
-            //             'Authorization': `Bearer ${token}`,
-            //             'Content-Type': 'application/json',
-            //         },
-            //     }
-            // );
+            
             const response =await Apiplaylist.apicreateplaylist(playlistData)
             setShowAlert(true);
       setTimeout(() => {

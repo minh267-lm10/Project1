@@ -6,6 +6,7 @@ import { albumsDataca4 } from "../assets/assets";
 import { PlayerContext } from "../context/PlayerContext"
 import Apisong from "../Api/Apisong";
 import Apisinger from "../Api/Apisinger";
+import { getToken } from "../Service/Localtokenservice";
 
 const SideBar = () => {
     const {searchActive, setSearchActive} = useContext(PlayerContext);
@@ -19,6 +20,13 @@ const SideBar = () => {
   const checkactive2=()=>{
     setSearchTerm('')          
     navigate('/')
+  }
+  const checklogin=()=>{
+    if(getToken==null)
+      navigate('/Login')
+
+    else
+    navigate("/addplaylist")
   }
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -99,7 +107,7 @@ const SideBar = () => {
         <div className="p-4 bg-[#242424] m-2 rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4">
           <h1>Create first playlist</h1>
           <p className="font-light">It's easy we will help you</p>
-          <button className="px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4" onClick={() => navigate("/addplaylist")}>
+          <button className="px-4 py-1.5 bg-white text-[15px] text-black rounded-full mt-4" onClick={checklogin}>
             Create Playlist
           </button>
         </div>
