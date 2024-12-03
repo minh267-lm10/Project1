@@ -8,7 +8,6 @@ function Postartist(props) {
   const [openpost, setOpenpost] = useState(false);
   const [notification, setNotification] = useState(null); // Thêm state cho thông báo
   let allorpost = false;
-
   let fetchsendpost = async () => {
     try {
       let b = {
@@ -20,7 +19,7 @@ function Postartist(props) {
       setNotification('Đã đăng bài thành công!');
       setTimeout(() => setNotification(null), 3000); // Ẩn thông báo sau 3 giây
     } catch (error) {
-      alert('Lỗi: ' + error.response.data.message);
+      alert( error.response.data.message);
     }
   };
 
@@ -37,7 +36,7 @@ function Postartist(props) {
 
   let fetchloadpost = async () => {
     try {
-      let res = await Apiuser.apigetuserpost();
+      let res = await Apiuser.apigetpostfollow();
       setPosts(res.data.result.data);
     } catch (error) {
       console.log('Lỗi tải bài viết:', error.response?.data);
@@ -110,12 +109,12 @@ function Postartist(props) {
               className="flex bg-[#2a2a2a] p-4 rounded-md shadow mb-4 items-start"
             >
               <img
-                src="https://cdnphoto.dantri.com.vn/EVmIDCyP9qq4Z49fA8pTaAJNmB0=/thumb_w/1020/2023/12/16/phuongly3-1702740014752.jpg"
+              src={post.imgUser}
                 alt="Post thumbnail"
                 className="w-16 h-16 rounded-full mr-4 object-cover"
               />
               <div className="flex-1">
-                <p className="text-gray-200 font-bold mb-1">Luyện đz đăng đó</p>
+                <p className="text-gray-200 font-bold mb-1">{post.stageName}</p>
                 <span className="text-gray-500 text-sm">
                   {formatDate(post.createdDate)}
                 </span>

@@ -39,6 +39,23 @@ const NavBar = ({allorpost}) => {
             console.error("Error fetching user info:", error);
         }
     };
+    const routevnp = async () => {
+        
+      
+        try {
+          // Gửi request đến API
+          const response =await Apiuser.apipayment()
+          console.log(response.data)
+      
+       
+        // Nếu API trả về HTML, điều hướng đến trang đó
+      const paymentUrl = response.request.responseURL; // Lấy URL từ response
+      window.location.href = paymentUrl;
+        } catch (error) {
+          console.error("Lỗi:", error);
+          alert("Có lỗi xảy ra khi gọi API.");
+        }
+      };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -74,7 +91,7 @@ const NavBar = ({allorpost}) => {
                 </div>
                 <div className="flex items-center gap-4">
                     {getToken() ? (
-                        <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">
+                        <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer" onClick={routevnp}>
                             Explore Premium
                         </p>
                     ) : ' '}

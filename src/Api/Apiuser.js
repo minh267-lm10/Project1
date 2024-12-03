@@ -31,9 +31,16 @@ const Apiuser={
         const  url='/post/my-posts'
         return axiosclient.get(url)
     },
-    apisinginwithgg()
+    apigetpostfollow()
     {
-        return;
+        const url="/post/myFollowingPosts"
+        return axiosclient.get(url);
+    },
+    apipayment()
+    {
+        let t= 100000
+        const url=`/identity/vnpay/create_payment?amount=100000`
+        return axiosclient.get(url)
     }
 }
 export default Apiuser

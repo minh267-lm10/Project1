@@ -22,11 +22,12 @@ const SideBar = () => {
     navigate('/')
   }
   const checklogin=()=>{
-    if(getToken==null)
-      navigate('/Login')
-
+  
+    if(getToken())
+      navigate("/addplaylist")
     else
-    navigate("/addplaylist")
+    navigate('/Login')
+
   }
   useEffect(() => {
     const fetchSearchResults = async () => {

@@ -18,7 +18,7 @@ function AccountPost() {
         setShowAlert(false); 
       }, 3000);
     } catch (error) {
-      alert("Lỗi khi đăng bài: " + error.response?.data.message );
+      alert( error.response?.data.message );
     }
   };
 
