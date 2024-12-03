@@ -70,7 +70,7 @@ function Postartist(props) {
             {notification}
           </div>
         )}
-        {openpost === false && (
+        {/* {openpost === false && (
           <div className="flex items-center space-x-2">
             <p className="text-gray-200">Hôm nay của bạn thế nào?</p>
             <button
@@ -83,7 +83,7 @@ function Postartist(props) {
             <br />
             <br />
           </div>
-        )}
+        )} */}
         {openpost === true && (
           <>
             <div className="w-full max-w-lg bg-[#1f1f1f] p-4 rounded-lg shadow-lg mb-6">
