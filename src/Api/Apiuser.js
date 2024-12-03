@@ -1,3 +1,4 @@
+import { getToken } from "../Service/Localtokenservice";
 import axiosclient from "./Axioclient";
 const Apiuser={
     apiLogin(data){
@@ -41,6 +42,12 @@ const Apiuser={
         let t= 100000
         const url=`/identity/vnpay/create_payment?amount=100000`
         return axiosclient.get(url)
+    },
+    apresettoken()
+    {
+        let t= getToken()
+        const url=`identity/auth/refresh`
+        return axiosclient.post(url,t)
     }
 }
 export default Apiuser

@@ -4,13 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { PlayerContext } from "../context/PlayerContext";
 import '../css/menudrop.css';
 import Apiuser from "../Api/Apiuser";
-import { getToken, removeToken } from "../Service/Localtokenservice";
+import { getToken, removeToken, setToken } from "../Service/Localtokenservice";
+import { jwtDecode } from "jwt-decode";
+import { useLocation } from "react-router-dom";
+
+
 
 const NavBar = ({allorpost}) => {
     const { datauser, setDatauser,setSearchTerm } = useContext(PlayerContext);
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
+    const[premium,setPremium] = useState("Explore Premium")
+    const location1= useLocation();
     
 
     const checklogin = () => {
@@ -22,8 +28,6 @@ const NavBar = ({allorpost}) => {
         removeToken();
         setSearchTerm('')
         setDatauser([])
-   
-
         navigate('/');
     };
 
@@ -45,28 +49,73 @@ const NavBar = ({allorpost}) => {
         try {
           // Gửi request đến API
           const response =await Apiuser.apipayment()
-          console.log(response.data)
+          sessionStorage.setItem('paymentStatus', 'pending');
+          
       
        
         // Nếu API trả về HTML, điều hướng đến trang đó
-      const paymentUrl = response.request.responseURL; // Lấy URL từ response
+      //const paymentUrl = response.request.responseURL; // Lấy URL từ response
+      const paymentUrl= response.data.message
       window.location.href = paymentUrl;
         } catch (error) {
           console.error("Lỗi:", error);
           alert("Có lỗi xảy ra khi gọi API.");
         }
       };
+      const hasRole = (token, role) => {
+        try {
+          const decoded = jwtDecode(token);
+          const scope = decoded.scope || "";
+          return scope.includes(role);
+        } catch (error) {
+          console.error("Token không hợp lệ:", error);
+          return false;
+        }
+      };
+      useEffect(() => {
+        const params = new URLSearchParams(location1.search);
+        const paymentStatus = params.get("status"); // Lấy giá trị `status` từ URL
+    
+        // Nếu người dùng vừa thanh toán xong (ví dụ: ?status=success)
+        if (paymentStatus === "success" ) {
+          alert("đang bắt được rồi") // Đảm bảo không gọi lại nhiều lần
+        }
+      }, [location1.search]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
+
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
+        
         if (getToken()) {
             fetchUserInfo();
-        }
+            if (hasRole(getToken(), "ROLE_SUBSCRIBER")) {
+                setPremium("Premium Account")
+            }
+            const paymentStatus = sessionStorage.getItem('paymentStatus');
+            if (paymentStatus) {
+                const sendreset = async () => {
+                    try {
+                        const response = await Apiuser.apresettoken();
+                        console.log(response);
+                        setToken(response.data.result.token)
+                        sessionStorage.clear()
+                      //  alert("a:"+response.data.result.token)
+                        if (hasRole(getToken(), "ROLE_SUBSCRIBER")) {
+                            setPremium("Premium Account")
+                        }
+                    } catch (error) {
+                        console.error("Error refreshing token:", error);
+                    }
+                };
+            
+                sendreset();
+            }      
+    }
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -92,7 +141,7 @@ const NavBar = ({allorpost}) => {
                 <div className="flex items-center gap-4">
                     {getToken() ? (
                         <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer" onClick={routevnp}>
-                            Explore Premium
+                            {premium}
                         </p>
                     ) : ' '}
 
